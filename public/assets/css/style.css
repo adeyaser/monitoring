@@ -2015,15 +2015,18 @@ html[data-bs-theme="light"] .swal2-timer-progress-bar {
 
 .vessel-item-detailed {
     margin-bottom: 20px;
-    background: rgba(0, 0, 0, 0.02);
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.05);
+    /* Slightly darker for light mode */
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 [data-bs-theme="dark"] .vessel-item-detailed {
-    background: rgba(255, 255, 255, 0.02);
-    border-color: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.06);
+    /* Significantly lighter for dark mode */
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .vessel-item-detailed:last-child {

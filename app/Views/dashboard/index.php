@@ -310,6 +310,21 @@
     console.log('Dashboard Data Loaded:', dbData);
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Chart.js Theme Defaults
+    const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+    const themeColor = isDark ? '#e6edf3' : '#212529';
+    const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
+    
+    Chart.defaults.color = themeColor;
+    Chart.defaults.borderColor = gridColor;
+    if (Chart.defaults.plugins && Chart.defaults.plugins.legend) {
+        Chart.defaults.plugins.legend.labels.color = themeColor;
+    }
+    if (Chart.defaults.scales && Chart.defaults.scales.linear) {
+        Chart.defaults.scales.linear.grid.color = gridColor;
+        Chart.defaults.scales.linear.ticks.color = themeColor;
+    }
+
     // Initialize Gauges
     initGauges();
     
@@ -449,8 +464,8 @@ function updateTrafficChart(type) {
                 tooltip: { mode: 'index', intersect: false }
             },
             scales: {
-                x: { grid: { color: 'rgba(0,0,0,0.05)' } },
-                y: { title: { display: true, text: yTitle }, beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } }
+                x: { grid: { } },
+                y: { title: { display: true, text: yTitle }, beginAtZero: true, grid: { } }
             }
         }
     });
@@ -484,22 +499,16 @@ function initBerthHistoryChart() {
             },
             scales: {
                 x: {
-                    grid: {
-                        color: 'rgba(255,255,255,0.05)'
-                    },
+                    grid: { },
                     ticks: {
-                        color: '#8b949e',
                         font: {
                             size: 10
                         }
                     }
                 },
                 y: {
-                    grid: {
-                        color: 'rgba(255,255,255,0.05)'
-                    },
+                    grid: { },
                     ticks: {
-                        color: '#8b949e',
                         stepSize: 1
                     }
                 }
@@ -565,10 +574,6 @@ function initTerminalSlotChart() {
                     grid: { display: false },
                     ticks: {
                         font: { size: 10 },
-                        color: (ctx) => {
-                            // Color percent red/green? Just keep black/grey for now
-                             return '#fff' ? '#212529' : '#000';
-                        },
                         callback: function(val, index) {
                             // Show multiline
                             const label = this.getLabelForValue(val);
@@ -580,7 +585,7 @@ function initTerminalSlotChart() {
                 y: {
                     stacked: true,
                     beginAtZero: true,
-                    grid: { color: 'rgba(0,0,0,0.05)' }
+                    grid: { color: 'rgba(255,255,255,0.15)' }
                 }
             },
             plugins: {
@@ -699,7 +704,7 @@ function updateThroughputChart(type) {
             scales: {
                 x: {
                     grid: { display: false },
-                    ticks: { color: '#6c757d' }
+                    ticks: { }
                 },
                 y: {
                     display: false, // Clean look like image
@@ -956,24 +961,23 @@ function updateBookingChart(type) {
             },
             scales: {
                 x: {
-                    grid: { display: false },
-                    ticks: { color: '#6c757d' }
+                    grid: { display: false }
                 },
                 y: {
                     title: { display: true, text: 'Truck' },
                     beginAtZero: true,
                     suggestedMax: 700,
-                    grid: { color: 'rgba(0,0,0,0.05)' },
-                    ticks: { stepSize: 125, color: '#6c757d' }
+                    ticks: { stepSize: 125 }
                 }
             },
             animation: {
                 onComplete: function() {
                     const chart = this;
                     const ctx = chart.ctx;
+                    const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'bottom';
-                    ctx.fillStyle = '#000';
+                    ctx.fillStyle = isDark ? '#e6edf3' : '#212529';
                     ctx.font = 'bold 9px sans-serif';
 
                     chart.data.datasets.forEach((dataset, i) => {
