@@ -317,12 +317,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     Chart.defaults.color = themeColor;
     Chart.defaults.borderColor = gridColor;
-    if (Chart.defaults.plugins && Chart.defaults.plugins.legend) {
+    
+    // Defensive check for Chart.js 4.x defaults structure
+    if (Chart.defaults.plugins && Chart.defaults.plugins.legend && Chart.defaults.plugins.legend.labels) {
         Chart.defaults.plugins.legend.labels.color = themeColor;
     }
-    if (Chart.defaults.scales && Chart.defaults.scales.linear) {
-        Chart.defaults.scales.linear.grid.color = gridColor;
-        Chart.defaults.scales.linear.ticks.color = themeColor;
+    
+    if (Chart.defaults.scales) {
+        if (Chart.defaults.scales.linear) {
+            if (!Chart.defaults.scales.linear.grid) Chart.defaults.scales.linear.grid = {};
+            if (!Chart.defaults.scales.linear.ticks) Chart.defaults.scales.linear.ticks = {};
+            Chart.defaults.scales.linear.grid.color = gridColor;
+            Chart.defaults.scales.linear.ticks.color = themeColor;
+        }
     }
 
     // Initialize Gauges
