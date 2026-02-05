@@ -2053,8 +2053,7 @@ html[data-bs-theme="light"] .swal2-timer-progress-bar {
 .vessel-name-lg {
     font-size: 15px;
     font-weight: 800;
-    color: #000000;
-    /* Pure Black for sharpness */
+    color: var(--text-primary);
     margin-bottom: 2px;
     white-space: nowrap;
     overflow: hidden;
@@ -2063,8 +2062,7 @@ html[data-bs-theme="light"] .swal2-timer-progress-bar {
 
 .berthing-time {
     font-size: 11px;
-    color: #888888;
-    /* Distinct Grey */
+    color: var(--text-secondary);
 }
 
 /* Column 2 & 3: Dates & Stats (Align Label and Value) */
@@ -2090,27 +2088,25 @@ html[data-bs-theme="light"] .swal2-timer-progress-bar {
     display: flex;
     align-items: center;
     white-space: nowrap;
-    color: #333333;
+    color: var(--text-primary);
 }
 
 .label-dim {
-    color: #999999;
-    /* Lighter grey for labels to make value pop */
+    color: var(--text-muted);
     min-width: 35px;
     margin-right: 6px;
     font-weight: 500;
 }
 
 .label-dim-wide {
-    color: #999999;
+    color: var(--text-muted);
     min-width: 45px;
     margin-right: 6px;
     font-weight: 500;
 }
 
 .val-highlight {
-    color: #000000;
-    /* Black for values */
+    color: var(--text-primary);
     font-weight: 700;
 }
 
@@ -2464,15 +2460,7 @@ html[data-bs-theme="light"] .swal2-timer-progress-bar {
     margin-top: 5px;
 }
 
-.dashboard-card .vessel-name-lg {
-    color: #e6edf3;
-}
-
-.dashboard-card .berthing-time,
-.dashboard-card .vessel-dates,
-.dashboard-card .vessel-stats-group {
-    color: #8b949e;
-}
+/* Cleaned up overriding colors */
 
 .dashboard-card .custom-progress {
     background-color: rgba(255, 255, 255, 0.1);
