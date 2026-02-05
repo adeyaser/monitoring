@@ -47,7 +47,7 @@ class Dashboard extends BaseController
         if (!$bor) $bor = ['bor_percentage' => 0, 'jict_pct' => 0, 'koja_pct' => 0];
         if (!$bsh) $bsh = ['inter_bsh_actual' => 0, 'inter_bsh_target' => 0, 'dom_bsh_actual' => 0, 'dom_bsh_target' => 0];
 
-        $data = [
+        $data = array_merge($this->getViewData(), [
             'title'         => 'Dashboard Monitoring',
             // Pass Data to View
             'vessels'       => $vessels,
@@ -62,7 +62,7 @@ class Dashboard extends BaseController
             'avgBor'        => $bor['bor_percentage'],
             'currentDate'   => date('d F Y'),
             'currentTime'   => date('H:i:s')
-        ];
+        ]);
 
         return view('dashboard/index', $data);
     }

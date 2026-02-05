@@ -2792,11 +2792,11 @@ html[data-bs-theme="light"] .swal2-timer-progress-bar {
 }
 
 .main-content {
-    padding-top: 90px !important;
+    padding-top: 75px !important;
 }
 
 .dashboard-container {
-    padding-top: 5px !important;
+    padding-top: 0px !important;
 }
 
 /* Comprehensive Mobile Responsive Fixes */

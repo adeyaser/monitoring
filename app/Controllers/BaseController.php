@@ -60,7 +60,7 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
         $this->session = \Config\Services::session();
         
-        // Load user data if logged in
+        // Load user data or set guest defaults
         if ($this->session->get('isLoggedIn')) {
             $this->userData = [
                 'id' => $this->session->get('userId'),
@@ -72,14 +72,38 @@ abstract class BaseController extends Controller
                 'group_code' => $this->session->get('groupCode'),
             ];
             
-            // Load menu data
+            // Load menu data for specific group
             $menuModel = new AclMenuModel();
             $this->menuData = $menuModel->getMenusForGroup($this->userData['group_id']);
+        } else {
+            // Guest mode: Load all active menus but set can_view to true for display
+            $menuModel = new AclMenuModel();
+            $rawMenus = $menuModel->getActiveMenus();
+            
+            // Mock permissions for guest to see menus
+            foreach ($rawMenus as &$m) {
+                $m['can_view'] = 1;
+            }
+            
+            // Re-build tree manually for guest
+            $this->menuData = $this->invokePrivateMethod($menuModel, 'buildTree', [$rawMenus]);
         }
         
         // Load app settings
         $settingModel = new AppSettingModel();
         $this->settings = $settingModel->getAllSettings();
+    }
+
+    /**
+     * Helper to invoke private methods (for buildTree in AclMenuModel)
+     */
+    private function invokePrivateMethod($object, $methodName, array $parameters = [])
+    {
+        $reflection = new \ReflectionClass(get_class($object));
+        $method = $reflection->getMethod($methodName);
+        $method->setAccessible(true);
+ 
+        return $method->invokeArgs($object, $parameters);
     }
 
     /**
