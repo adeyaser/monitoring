@@ -25,10 +25,10 @@
     --dark-300: #30363d;
     --dark-400: #484f58;
 
-    /* Text Colors */
-    --text-primary: #f0f6fc;
-    --text-secondary: #8b949e;
-    --text-muted: #6e7681;
+    /* Text Colors - More Cohesive */
+    --text-primary: #e6edf3;
+    --text-secondary: #adbac7;
+    --text-muted: #768390;
 
     /* Glass Effect */
     --glass-bg: rgba(22, 27, 34, 0.85);
@@ -91,10 +91,10 @@
     --dark-300: #e4e6eb;
     --dark-400: #bcc0c4;
 
-    /* Text Colors */
-    --text-primary: #1c1e21;
-    --text-secondary: #65676b;
-    --text-muted: #8a8d91;
+    /* Text Colors - More Cohesive */
+    --text-primary: #24292f;
+    --text-secondary: #57606a;
+    --text-muted: #6e7781;
 
     /* Glass Effect - Light */
     --glass-bg: rgba(255, 255, 255, 0.95);
@@ -2054,18 +2054,19 @@ html[data-bs-theme="light"] .swal2-timer-progress-bar {
 }
 
 .vessel-name-lg {
-    font-size: 15px;
-    font-weight: 800;
+    font-size: 14px;
+    font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 2px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: -0.2px;
 }
 
 .berthing-time {
-    font-size: 11px;
-    color: var(--text-secondary);
+    font-size: 10px;
+    color: var(--text-muted);
 }
 
 /* Column 2 & 3: Dates & Stats (Align Label and Value) */
@@ -2092,6 +2093,7 @@ html[data-bs-theme="light"] .swal2-timer-progress-bar {
     align-items: center;
     white-space: nowrap;
     color: var(--text-primary);
+    font-size: 11px;
 }
 
 .label-dim {
