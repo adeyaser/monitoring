@@ -33,7 +33,7 @@
     </script>
 
     <!-- Custom CSS -->
-    <link href="<?= base_url('assets/css/style.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/css/style.css?v=1.1') ?>" rel="stylesheet">
 </head>
 <body>
     <!-- Wrapper -->
