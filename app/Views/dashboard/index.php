@@ -597,16 +597,22 @@ function initTerminalSlotChart() {
                 y: {
                     stacked: true,
                     beginAtZero: true,
-                    grid: { color: 'rgba(255,255,255,0.15)' }
+                    grid: { 
+                        drawBorder: false,
+                        color: (ctx) => document.documentElement.getAttribute('data-bs-theme') === 'dark' 
+                               ? 'rgba(255, 255, 255, 0.08)' 
+                               : 'rgba(0, 0, 0, 0.05)'
+                    }
                 }
             },
             plugins: {
                 legend: {
-                    position: 'top',
+                    position: 'bottom',
                     labels: {
                         usePointStyle: true,
                         boxWidth: 8,
-                        font: { size: 11 }
+                        padding: 15,
+                        font: { size: 10 }
                     }
                 },
                 tooltip: {
