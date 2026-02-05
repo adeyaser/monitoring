@@ -154,6 +154,18 @@
                 
                 <?= $this->renderSection('content') ?>
             </div>
+            
+            <!-- Footer -->
+            <footer class="main-footer">
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <span class="fw-bold text-body-secondary">
+                        <?= esc($settings['company_name'] ?? 'PELINDO') ?> <span class="fw-normal">Monitoring System</span>
+                    </span>
+                    <span class="text-muted small">
+                         &copy; <?= date('Y') ?>. All rights reserved.
+                    </span>
+                </div>
+            </footer>
         </main>
     </div>
     

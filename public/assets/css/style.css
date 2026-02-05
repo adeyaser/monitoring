@@ -419,7 +419,7 @@ body {
     overflow-x: hidden;
 
     /* Add padding for fixed header */
-    padding-top: var(--header-height);
+    padding-top: 120px;
 
     /* Smooth scrolling */
     -webkit-overflow-scrolling: touch;
@@ -1917,5 +1917,984 @@ html[data-bs-theme="light"] .swal2-timer-progress-bar {
     .btn-icon {
         width: 36px;
         height: 36px;
+    }
+}
+
+/* =====================================================
+   GAUGE STATS
+   ===================================================== */
+.gauge-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--glass-border);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.stat-value {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* =====================================================
+   VESSEL LIST DETAILED (Top Row)
+   ===================================================== */
+.vessel-list-detailed {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.vessel-item-detailed {
+    background: #e9ecef;
+    /* Light Grey like in the photo */
+    border-radius: 6px;
+    padding: 10px 14px;
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.vessel-top-row {
+    margin-bottom: 6px;
+}
+
+.berth-badge {
+    background-color: #0044cc;
+    /* Strong Blue */
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Vessel List Scrollable Container */
+.vessel-list-detailed {
+    max-height: 550px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+}
+
+/* Custom Scrollbar for Vessel List */
+.vessel-list-detailed::-webkit-scrollbar {
+    width: 5px;
+}
+
+.vessel-list-detailed::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.vessel-list-detailed::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+[data-bs-theme="dark"] .vessel-list-detailed::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.vessel-item-detailed {
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.02);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-bs-theme="dark"] .vessel-item-detailed {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.vessel-item-detailed:last-child {
+    margin-bottom: 0;
+}
+
+/* Strict Grid Layout for Main Info */
+.vessel-content-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "identity badges"
+        "dates stats";
+    /* Adjusted for better spacing */
+    gap: 8px 15px;
+    align-items: start;
+    margin-bottom: 8px;
+}
+
+/* Column 1: Identity */
+.vessel-identity {
+    grid-area: identity;
+    display: flex;
+    flex-direction: column;
+}
+
+.vessel-name-lg {
+    font-size: 15px;
+    font-weight: 800;
+    color: #000000;
+    /* Pure Black for sharpness */
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.berthing-time {
+    font-size: 11px;
+    color: #888888;
+    /* Distinct Grey */
+}
+
+/* Column 2 & 3: Dates & Stats (Align Label and Value) */
+.vessel-dates {
+    grid-area: dates;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+}
+
+.vessel-stats-group {
+    grid-area: stats;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+    align-items: flex-end;
+}
+
+.date-row,
+.stat-row {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    color: #333333;
+}
+
+.label-dim {
+    color: #999999;
+    /* Lighter grey for labels to make value pop */
+    min-width: 35px;
+    margin-right: 6px;
+    font-weight: 500;
+}
+
+.label-dim-wide {
+    color: #999999;
+    min-width: 45px;
+    margin-right: 6px;
+    font-weight: 500;
+}
+
+.val-highlight {
+    color: #000000;
+    /* Black for values */
+    font-weight: 700;
+}
+
+/* Column 4: Badges */
+.vessel-badges {
+    grid-area: badges;
+    display: flex;
+    gap: 6px;
+    justify-content: flex-end;
+}
+
+.code-badge {
+    background-color: #0d6efd;
+    /* Bootstrap Primary Blue */
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 6px;
+    border-radius: 4px;
+    min-width: 32px;
+    text-align: center;
+}
+
+/* Horizontal Progress Section */
+.vessel-progress-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    /* Light border */
+}
+
+.prog-text-left,
+.prog-text-right {
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    display: flex;
+    gap: 8px;
+    min-width: 90px;
+    /* Ensure alignment */
+}
+
+.prog-text-right {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.text-dim {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.text-success-bold {
+    color: #198754;
+    font-weight: 800;
+}
+
+.text-danger-bold {
+    color: #dc3545;
+    font-weight: 800;
+}
+
+.text-warning-bold {
+    color: #d39e00;
+    font-weight: 800;
+}
+
+.bars-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Gap between two bars */
+}
+
+.bar-wrapper {
+    flex: 1;
+    /* Both bars take equal width space */
+    height: 8px;
+    /* Thicker bar */
+    background-color: #d1d5db;
+    /* Darker Grey Track for visibility */
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+/* Explicit Bar Colors */
+.bg-success {
+    background-color: #198754 !important;
+}
+
+/* Green */
+.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+/* Red */
+.bg-warning {
+    background-color: #ffc107 !important;
+}
+
+/* Orange */
+
+/* =====================================================
+   CUSTOM CONTAINER THROUGHPUT CARD
+   ===================================================== */
+.counter-card-custom {
+    background: #e3e6e8;
+    /* Exact Grey from image */
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    /* Taller for spacing */
+    box-shadow: none;
+    /* Flat look */
+    border: 1px solid #d1d5db;
+}
+
+.counter-title-custom {
+    font-size: 13px;
+    font-weight: 700;
+    color: #4b5563;
+    /* Medium Dark Grey */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.throughput-counter-wrapper {
+    background: #dce0e5;
+    /* Slightly darker grey for recess */
+    padding: 12px 18px;
+    border-radius: 12px;
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 1px 0 rgba(255, 255, 255, 0.5);
+    /* Bevel Highlght */
+    margin-bottom: 25px;
+    display: inline-block;
+}
+
+.counter-display-custom {
+    display: flex;
+    gap: 8px;
+    /* Wider gap between digits */
+    justify-content: center;
+}
+
+.counter-digit-tile {
+    width: 42px;
+    /* Bigger tiles */
+    height: 60px;
+    background: linear-gradient(to bottom, #1e3a8a, #172554);
+    /* Gradient Blue */
+    border-radius: 6px;
+    color: #111111;
+    /* Dark Black Text match image */
+    font-size: 36px;
+    font-family: 'Courier New', Courier, monospace;
+    /* Mechanical font look */
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* The horizontal split line effect */
+.digit-split-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.counter-digit-tile span {
+    z-index: 1;
+    line-height: 1;
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    /* Subtle shadow for depth */
+}
+
+.counter-footer-custom {
+    width: 100%;
+    max-width: 400px;
+    /* Constrain width to align with counter */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.counter-note {
+    font-size: 12px;
+    color: #6c757d;
+    font-style: italic;
+    font-family: sans-serif;
+}
+
+.counter-unit-custom {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    /* Nearly Black */
+}
+
+/* Dark mode overrides if needed, assuming dashboard uses dark mode mostly */
+/* =====================================================
+   CUSTOM YOR TERMINAL CARD
+   ===================================================== */
+.yor-card-custom {
+    background: #e9ecef;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 280px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.yor-header {
+    margin-bottom: 10px;
+}
+
+.yor-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #212529;
+}
+
+.yor-date {
+    font-size: 11px;
+    color: #6c757d;
+}
+
+.yor-gauge-container {
+    position: relative;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 160px;
+    height: 100px;
+}
+
+.yor-overlay-value {
+    position: absolute;
+    bottom: 5px;
+    /* Adjust based on cutout */
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: #b91c1c;
+    /* Deep Red */
+}
+
+.yor-split-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.yor-stat-left,
+.yor-stat-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 20px;
+    background: #ced4da;
+}
+
+.sub-label {
+    font-size: 9px;
+    color: #6c757d;
+    margin-bottom: 2px;
+}
+
+.sub-value {
+    font-size: 12px;
+    font-weight: 800;
+    color: #212529;
+}
+
+.yor-footer-stats {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.footer-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #6c757d;
+}
+
+.f-label {
+    font-weight: 400;
+}
+
+.f-value {
+    font-weight: 700;
+    color: #343a40;
+}
+
+.f-value .unit {
+    font-size: 9px;
+    font-weight: 400;
+}
+
+.yor-bottom-link {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #212529;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.dashboard-card .vessel-name-lg {
+    color: #e6edf3;
+}
+
+.dashboard-card .berthing-time,
+.dashboard-card .vessel-dates,
+.dashboard-card .vessel-stats-group {
+    color: #8b949e;
+}
+
+.dashboard-card .custom-progress {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* =====================================================
+   VESSEL LIST (Right Column) - OLD
+   ===================================================== */
+.vessel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.vessel-item {
+    background: var(--dark-200);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    border-left: 3px solid var(--primary);
+}
+
+.vessel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.vessel-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.vessel-status {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.vessel-status.status-loading {
+    background: rgba(0, 200, 83, 0.2);
+    color: var(--success);
+}
+
+.vessel-status.status-unloading {
+    background: rgba(0, 102, 204, 0.2);
+    color: var(--primary-light);
+}
+
+.vessel-status.status-berthing {
+    background: rgba(255, 171, 0, 0.2);
+    color: var(--warning);
+}
+
+.vessel-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.detail-row span:first-child {
+    font-weight: 600;
+}
+
+.progress-bar-vessel {
+    height: 6px;
+    background: var(--dark-300);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: 3px;
+    transition: width var(--transition-normal);
+}
+
+/* Counter Subtitle */
+.counter-subtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    letter-spacing: 1px;
+}
+
+/* 3 Column Layout Container */
+.dashboard-container-3col {
+    width: 100%;
+}
+
+/* Responsive adjustments for 3-column layout */
+@media screen and (max-width: 1399.98px) {
+
+    .dashboard-container-3col .col-xl-3,
+    .dashboard-container-3col .col-xl-5,
+    .dashboard-container-3col .col-xl-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .dashboard-container-3col .col-xl-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+
+    .dashboard-container-3col .col-xl-5 {
+        flex: 0 0 42%;
+        max-width: 42%;
+    }
+
+    .dashboard-container-3col .col-xl-4 {
+        flex: 0 0 33%;
+        max-width: 33%;
+    }
+}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+.main-footer {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    padding: 15px 24px;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.footer-brand i {
+    font-size: 24px;
+    color: var(--primary);
+}
+
+.footer-description {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.footer-center {
+    display: flex;
+    justify-content: center;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: var(--transition-fast);
+    padding: 4px 0;
+}
+
+.footer-links a:hover {
+    color: var(--primary-light);
+    padding-left: 8px;
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.footer-copyright {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.footer-version {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0;
+    font-family: 'SF Mono', 'Consolas', monospace;
+}
+
+/* Footer Responsive */
+@media screen and (max-width: 991.98px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        text-align: center;
+    }
+
+    .footer-center {
+        justify-content: center;
+    }
+
+    .footer-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .footer-right {
+        align-items: center;
+    }
+
+    .footer-links a:hover {
+        padding-left: 0;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .main-footer {
+        padding: 24px 16px;
+    }
+
+    .footer-brand {
+        font-size: 16px;
+        justify-content: center;
+    }
+
+    .footer-brand i {
+        font-size: 20px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* =====================================================
+   CUSTOM COMPONENTS & FIXES
+   ===================================================== */
+.trt-card-custom {
+    background: #e9ecef;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.trt-tabs-header {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #ced4da;
+    margin-bottom: 15px;
+    padding-bottom: 0px;
+    overflow-x: auto;
+}
+
+.trt-tab {
+    font-size: 13px;
+    color: #6c757d;
+    padding: 8px 5px;
+    cursor: pointer;
+    font-weight: 500;
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.trt-tab:hover {
+    color: #212529;
+}
+
+.trt-tab.active {
+    color: #0d6efd;
+    font-weight: 700;
+}
+
+.trt-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #0d6efd;
+    border-radius: 3px 3px 0 0;
+}
+
+/* Force Fix for Header Overlap & Spacing */
+.main-content {
+    padding-top: 130px !important;
+}
+
+.dashboard-container {
+    padding-top: 20px !important;
+}
+
+/* Comprehensive Mobile Responsive Fixes */
+@media screen and (max-width: 576px) {
+    .dashboard-container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .dashboard-card {
+        padding: 12px !important;
+    }
+
+    /* Vessel Card Mobile Fix */
+    .vessel-content-grid {
+        grid-template-columns: 1fr !important;
+        grid-template-areas:
+            "badges"
+            "identity"
+            "dates"
+            "stats" !important;
+        gap: 12px !important;
+    }
+
+    .vessel-badges {
+        justify-content: flex-start !important;
+    }
+
+    .vessel-stats-group {
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+
+    .vessel-progress-section {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+    }
+
+    .prog-text-left,
+    .prog-text-right {
+        min-width: 0 !important;
+        width: 100% !important;
+        justify-content: space-between !important;
+    }
+
+    .bars-container {
+        width: 100% !important;
+        margin: 4px 0 !important;
+    }
+
+    /* Throughput Counter Mobile Fix */
+    .counter-digit-tile {
+        width: 30px !important;
+        height: 45px !important;
+        font-size: 24px !important;
+    }
+
+    .counter-display-custom {
+        gap: 4px !important;
+    }
+
+    /* Tab Scrolling Fix */
+    .trt-tabs-header {
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        gap: 15px !important;
+        padding-bottom: 5px !important;
+        border-bottom: 1px solid var(--glass-border) !important;
+    }
+
+    .trt-tab {
+        flex: 0 0 auto !important;
+        font-size: 13px !important;
+    }
+
+    /* Gauge & Titles sizing */
+    .yor-overlay-value {
+        font-size: 18px !important;
+    }
+
+    .chart-title,
+    .yor-title {
+        font-size: 14px !important;
+    }
+
+    .counter-title-custom {
+        font-size: 12px !important;
+    }
+
+    .throughput-counter-wrapper {
+        justify-content: center !important;
+        margin: 10px 0 !important;
+    }
+
+    /* Sidebar toggle position on mobile */
+    .sidebar-toggle {
+        width: 32px !important;
+        height: 32px !important;
     }
 }

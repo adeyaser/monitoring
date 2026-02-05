@@ -2,139 +2,68 @@
 
 namespace App\Controllers;
 
-use App\Models\TerminalModel;
-use App\Models\TerminalOperationModel;
-use App\Models\ContainerThroughputModel;
-use App\Models\DailyTrendModel;
+use App\Models\VesselAlongsideModel;
+use App\Models\ThroughputStatsModel;
+use App\Models\YardOccupancyModel;
 use App\Models\BerthOccupancyModel;
-use App\Models\VesselScheduleModel;
+use App\Models\TrafficStatsModel;
+use App\Models\BSHPerformanceModel;
+use App\Models\BookingDistributionModel;
 
 class Dashboard extends BaseController
 {
-    protected $terminalModel;
-    protected $operationModel;
-    protected $throughputModel;
-    protected $trendModel;
-    protected $berthModel;
     protected $vesselModel;
+    protected $throughputModel;
+    protected $yorModel;
+    protected $borModel;
+    protected $trafficModel;
+    protected $bshModel;
+    protected $bookingModel;
 
     public function __construct()
     {
-        $this->terminalModel = new TerminalModel();
-        $this->operationModel = new TerminalOperationModel();
-        $this->throughputModel = new ContainerThroughputModel();
-        $this->trendModel = new DailyTrendModel();
-        $this->berthModel = new BerthOccupancyModel();
-        $this->vesselModel = new VesselScheduleModel();
+        $this->vesselModel      = new VesselAlongsideModel();
+        $this->throughputModel  = new ThroughputStatsModel();
+        $this->yorModel         = new YardOccupancyModel();
+        $this->borModel         = new BerthOccupancyModel();
+        $this->trafficModel     = new TrafficStatsModel();
+        $this->bshModel         = new BSHPerformanceModel();
+        $this->bookingModel     = new BookingDistributionModel();
     }
 
     public function index()
     {
-        // Check login
-        $loginCheck = $this->requireLogin();
-        if ($loginCheck) {
-            return $loginCheck;
-        }
+        // Fetch Real Database Data
+        $vessels        = $this->vesselModel->findAll();
+        $throughput     = $this->throughputModel->first(); 
+        $yor            = $this->yorModel->orderBy('date', 'DESC')->first();
+        $bor            = $this->borModel->orderBy('date', 'DESC')->first();
+        $bsh            = $this->bshModel->orderBy('period_month', 'DESC')->first();
+        $booking        = $this->bookingModel->orderBy('id', 'ASC')->findAll(); 
+        
+        // Handle Empty Data (Defaults)
+        if (!$throughput) $throughput = ['inter_box' => 0, 'dom_box' => 0, 'ship_calls' => 0];
+        if (!$yor) $yor = ['used_percentage' => 0, 'inter_used_pct' => 0, 'dom_used_pct' => 0, 'capacity_teus' => 0, 'current_teus' => 0];
+        if (!$bor) $bor = ['bor_percentage' => 0, 'jict_pct' => 0, 'koja_pct' => 0];
+        if (!$bsh) $bsh = ['inter_bsh_actual' => 0, 'inter_bsh_target' => 0, 'dom_bsh_actual' => 0, 'dom_bsh_target' => 0];
 
-        // Get today's data
-        $throughput = $this->throughputModel->getOverallThroughput();
-        $yorStats = $this->operationModel->getYorStats();
-        $totalContainers = $this->operationModel->getTotalContainers();
-        $berthAvg = $this->berthModel->getAverageOccupancy();
-        $vesselStats = $this->vesselModel->getVesselStats();
-
-        // Calculate average YOR (simulate if no data)
-        $avgYor = $yorStats['avg_yor'] ?? 63.95;
-        $avgBor = $berthAvg['avg_occupancy'] ?? 82.47;
-
-        $data = array_merge($this->getViewData(), [
-            'title' => 'Dashboard - Operational Information System',
-            'pageTitle' => 'Dashboard',
-            'throughput' => $throughput,
-            'yorStats' => $yorStats,
-            'totalContainers' => $totalContainers,
-            'avgYor' => round($avgYor, 2),
-            'avgBor' => round($avgBor, 2),
-            'vesselStats' => $vesselStats,
-            'currentDate' => date('d F Y'),
-            'currentTime' => date('H:i:s')
-        ]);
+        $data = [
+            'title'         => 'Dashboard Monitoring',
+            // Pass Data to View
+            'vessels'       => $vessels,
+            'throughput'    => $throughput,
+            'yor'           => $yor,
+            'bor'           => $bor,
+            'bsh'           => $bsh,
+            'bookingDist'   => $booking,
+            
+            // Legacy/Scalar variables
+            'avgYor'        => $yor['used_percentage'],
+            'avgBor'        => $bor['bor_percentage'],
+            'currentDate'   => date('d F Y'),
+            'currentTime'   => date('H:i:s')
+        ];
 
         return view('dashboard/index', $data);
-    }
-
-    // API Endpoints for AJAX calls
-    public function getStats()
-    {
-        $yorStats = $this->operationModel->getYorStats();
-        $totalContainers = $this->operationModel->getTotalContainers();
-        $throughput = $this->throughputModel->getOverallThroughput();
-        $berthAvg = $this->berthModel->getAverageOccupancy();
-        $vesselStats = $this->vesselModel->getVesselStats();
-
-        return $this->response->setJSON([
-            'success' => true,
-            'data' => [
-                'yor' => $yorStats,
-                'containers' => $totalContainers,
-                'throughput' => $throughput,
-                'berth' => $berthAvg,
-                'vessels' => $vesselStats
-            ]
-        ]);
-    }
-
-    public function getTrends()
-    {
-        $chartData = $this->trendModel->getChartData(14);
-        
-        return $this->response->setJSON([
-            'success' => true,
-            'data' => $chartData
-        ]);
-    }
-
-    public function getTerminals()
-    {
-        $operations = $this->operationModel->getOperationsWithTerminal();
-        
-        return $this->response->setJSON([
-            'success' => true,
-            'data' => $operations
-        ]);
-    }
-
-    public function getThroughput()
-    {
-        $throughputByTerminal = $this->throughputModel->getThroughputByTerminal();
-        $overall = $this->throughputModel->getOverallThroughput();
-        
-        return $this->response->setJSON([
-            'success' => true,
-            'data' => [
-                'byTerminal' => $throughputByTerminal,
-                'overall' => $overall
-            ]
-        ]);
-    }
-
-    public function getBerthOccupancy()
-    {
-        $occupancy = $this->berthModel->getBerthOccupancy();
-        
-        return $this->response->setJSON([
-            'success' => true,
-            'data' => $occupancy
-        ]);
-    }
-
-    public function getVessels()
-    {
-        $vessels = $this->vesselModel->getActiveVessels();
-        
-        return $this->response->setJSON([
-            'success' => true,
-            'data' => $vessels
-        ]);
     }
 }
