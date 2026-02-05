@@ -315,10 +315,9 @@
     console.log('Dashboard Data Loaded:', dbData);
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Chart.js Theme Defaults
-    const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
-    const themeColor = isDark ? '#e6edf3' : '#212529';
-    const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
+    // Chart.js Theme Defaults (Compact Light)
+    const themeColor = '#212529';
+    const gridColor = 'rgba(0, 0, 0, 0.08)';
     
     Chart.defaults.color = themeColor;
     Chart.defaults.borderColor = gridColor;
@@ -599,9 +598,7 @@ function initTerminalSlotChart() {
                     beginAtZero: true,
                     grid: { 
                         drawBorder: false,
-                        color: (ctx) => document.documentElement.getAttribute('data-bs-theme') === 'dark' 
-                               ? 'rgba(255, 255, 255, 0.08)' 
-                               : 'rgba(0, 0, 0, 0.05)'
+                        color: 'rgba(0, 0, 0, 0.08)'
                     }
                 }
             },
@@ -992,10 +989,9 @@ function updateBookingChart(type) {
                 onComplete: function() {
                     const chart = this;
                     const ctx = chart.ctx;
-                    const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'bottom';
-                    ctx.fillStyle = isDark ? '#e6edf3' : '#212529';
+                    ctx.fillStyle = '#212529';
                     ctx.font = 'bold 9px sans-serif';
 
                     chart.data.datasets.forEach((dataset, i) => {

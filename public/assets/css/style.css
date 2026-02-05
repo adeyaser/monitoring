@@ -4,74 +4,7 @@
    ===================================================== */
 
 /* CSS Variables - Dark Theme (Default) */
-:root,
-[data-bs-theme="dark"] {
-    --primary: #0066cc;
-    --primary-light: #3388dd;
-    --primary-dark: #004d99;
-    --secondary: #6c757d;
-    --success: #00c853;
-    --success-light: #00e676;
-    --warning: #ffab00;
-    --warning-light: #ffca28;
-    --danger: #ff1744;
-    --danger-light: #ff5252;
-    --info: #00bcd4;
-
-    /* Dark Theme Colors */
-    --dark: #0d1117;
-    --dark-100: #161b22;
-    --dark-200: #21262d;
-    --dark-300: #30363d;
-    --dark-400: #484f58;
-
-    /* Text Colors - More Cohesive */
-    --text-primary: #e6edf3;
-    --text-secondary: #adbac7;
-    --text-muted: #768390;
-
-    /* Glass Effect */
-    --glass-bg: rgba(22, 27, 34, 0.85);
-    --glass-border: rgba(48, 54, 61, 0.6);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-
-    /* Body Background */
-    --body-bg: #0d1117;
-    --body-bg-gradient: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
-
-    /* Card Background */
-    --card-bg: rgba(22, 27, 34, 0.85);
-    --card-border: rgba(48, 54, 61, 0.6);
-
-    /* Table */
-    --table-bg: transparent;
-    --table-stripe-bg: rgba(255, 255, 255, 0.02);
-    --table-hover-bg: rgba(0, 102, 204, 0.1);
-
-    /* Input */
-    --input-bg: #21262d;
-    --input-border: #30363d;
-    --input-text: #f0f6fc;
-
-    /* Spacing */
-    --sidebar-width: 280px;
-    --sidebar-collapsed: 80px;
-    --header-height: 70px;
-
-    /* Transitions */
-    --transition-fast: 0.15s ease;
-    --transition-normal: 0.3s ease;
-    --transition-slow: 0.5s ease;
-
-    /* Border Radius */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
-}
-
-/* CSS Variables - Light Theme */
-[data-bs-theme="light"] {
+:root {
     --primary: #0066cc;
     --primary-light: #3388dd;
     --primary-dark: #004d99;
@@ -116,9 +49,29 @@
 
     /* Input */
     --input-bg: #ffffff;
-    --input-border: #dddfe2;
-    --input-text: #1c1e21;
+    --input-border: #d1d9e0;
+    --input-text: #24292f;
+
+    /* Spacing */
+    --sidebar-width: 280px;
+    --sidebar-collapsed: 80px;
+    --header-height: 70px;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
 }
+
+
+
+
 
 /* Reset & Base */
 * {
@@ -2022,11 +1975,7 @@ html[data-bs-theme="light"] .swal2-timer-progress-bar {
     transition: var(--transition-fast);
 }
 
-[data-bs-theme="dark"] .vessel-item-detailed {
-    background: rgba(255, 255, 255, 0.03);
-    border-color: var(--glass-border);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+
 
 .vessel-item-detailed:hover {
     border-color: var(--primary-light);
@@ -2749,9 +2698,7 @@ html[data-bs-theme="light"] .swal2-timer-progress-bar {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-[data-bs-theme="dark"] .trt-card-custom {
-    background: rgba(255, 255, 255, 0.02);
-}
+
 
 .trt-tabs-header {
     display: flex;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" data-bs-theme="dark">
+<html lang="id" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,13 +24,7 @@
     <link href="https://unpkg.com/nprogress@0.2.0/nprogress.css" rel="stylesheet">
     <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
 
-    <!-- Theme Init (Prevent Flash) -->
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            document.documentElement.setAttribute('data-bs-theme', savedTheme);
-        })();
-    </script>
+
 
     <!-- Custom CSS -->
     <link href="<?= base_url('assets/css/style.css?v=1.1') ?>" rel="stylesheet">
@@ -97,9 +91,6 @@
                     </div>
                     
                     <div class="header-actions">
-                        <button class="btn-icon" id="themeToggle" title="Toggle Dark/Light Mode">
-                            <i class="bi bi-moon-fill" id="themeIcon"></i>
-                        </button>
                         <button class="btn-icon" id="refreshData" title="Refresh Data">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
@@ -191,43 +182,7 @@
     <!-- Custom JS -->
     <script src="<?= base_url('assets/js/app.js') ?>"></script>
     
-    <!-- Theme Toggle Script -->
-    <script>
-        (function() {
-            const html = document.documentElement;
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = document.getElementById('themeIcon');
-            
-            // Get saved theme or default to dark
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            // html.setAttribute('data-bs-theme', savedTheme); // Handled in head
-            updateIcon(savedTheme);
-            
-            function updateIcon(theme) {
-                if (themeIcon) {
-                    themeIcon.className = theme === 'dark' ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
-                }
-            }
-            
-            if (themeToggle) {
-                themeToggle.addEventListener('click', function() {
-                    const currentTheme = html.getAttribute('data-bs-theme');
-                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                    
-                    html.setAttribute('data-bs-theme', newTheme);
-                    localStorage.setItem('theme', newTheme);
-                    updateIcon(newTheme);
-                    
-                    // Update charts if they exist
-                    if (typeof Chart !== 'undefined') {
-                        Chart.helpers.each(Chart.instances, function(chart) {
-                            chart.update();
-                        });
-                    }
-                });
-            }
-        })();
-    </script>
+
     
     <?= $this->renderSection('scripts') ?>
 </body>
