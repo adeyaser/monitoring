@@ -262,11 +262,16 @@
     <div class="row g-4 mb-4">
         <!-- Terminal Slot Chart -->
         <div class="col-xl-6 col-lg-12">
-            <div class="dashboard-card">
-                <div class="card-header-custom">
-                    <span class="card-title">Internal Slot TBS (06:00-09:00)</span>
+            <div class="dashboard-card trt-card-custom">
+                <!-- Spacer tabs to match alignment -->
+                <div class="trt-tabs-header">
+                    <div class="trt-tab active">Terminal Slot Realization</div>
+                    <div class="trt-tab" style="visibility: hidden;">Spacer</div>
                 </div>
-                <div class="chart-container" style="height: 200px;">
+                
+                <div class="chart-title" style="font-weight: 700; margin-bottom: 10px;">Internal Slot TBS (06:00-09:00)</div>
+
+                <div class="chart-container" style="height: 300px;">
                     <canvas id="terminalSlotChart"></canvas>
                 </div>
             </div>
